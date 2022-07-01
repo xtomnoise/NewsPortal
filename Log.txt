@@ -1,0 +1,66 @@
+from news.models import * 
+
+>>> User.objects.create_user('Jo')
+>>> User.objects.create_user('Mitya')
+>>> u1, u2 = User.objects.all() 
+>>> 
+>>> Author.objects.create(user=u1)   
+>>> Author.objects.create(user=u2)
+>>> a1, a2 = Author.objects.all()
+>>> 
+>>> Category.objects.create(category_name='History')
+>>> Category.objects.create(category_name='Sport')   
+>>> Category.objects.create(category_name='Fun')   
+>>> Category.objects.create(category_name='Music')
+>>> c1, c2, c3, c4 = Category.objects.all()
+>>> 
+>>> Post.objects.create(author = a1, post_kind = 'AR', title = 'About this', text = 'adds the Author instance joe to the entry object adds the Author instance joe to the entry object')
+>>> Post.objects.create(author = a2, post_kind = 'AR', title = 'TTT', text = 'About using TTT About using TTT About using TTT About using TTT')
+>>> Post.objects.create(author = a1, post_kind = 'NW', title = 'Text news', text = 'Text text text text text text text text text text text text text text text text text text text text text text')
+>>> p1, p2, p3 = Post.objects.all()
+>>> 
+>>> p1.category.add(c1, c2)
+>>> p2.category.add(c3, c4, c1)
+>>> p3.category.add(c1, c2, c4)
+>>> 
+>>> Comment.objects.create(user = u1, post = p1, text = 'Wow')
+>>> Comment.objects.create(user = u2, post = p2, text = 'No')
+>>> Comment.objects.create(user = u1, post = p3, text = 'Yes')
+>>> Comment.objects.create(user = u2, post = p1, text = 'Great')
+>>> k1, k2, k3, k4 = Comment.objects.all()
+>>> 
+>>> 
+>>> tuple(Author.objects.order_by('-rating').values('user__username', 'rating')[0].values())
+('Jo', 29)
+>>> 
+>>> p_ord = Post.objects.order_by('-rating')
+>>> p_ord.first().time_create.strftime("%d-%b-%y")
+'01-Jul-22'
+>>> tuple(p_ord.values('author__user__username', 'rating', 'title').first().values())
+('Jo', 3, 'About this')
+>>> for i in p_ord.values('author__user__username', 'rating', 'title').first().values():
+...     i
+...
+'Jo'
+3
+'About this'
+>>>
+>>> p_ord.first().preview()
+'adds the Author instance joe to the entry object adds the Author instance joe to the entry object...'
+>>>
+>>> best_comms = list(p_ord[0].comment_set.values('time_create', 'user__username', 'rating', 'text'))
+>>> 
+>>> for i in best_comms:
+...     i['time_create'].strftime("%d-%b-%y")
+...     i['user__username']
+...     i['rating']
+...     i['text']
+... 
+'01-Jul-22'
+'Jo'
+3
+'Wow'
+'01-Jul-22'
+'Mitya'
+4
+'Great'
