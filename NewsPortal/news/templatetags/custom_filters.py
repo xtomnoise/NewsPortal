@@ -1,4 +1,5 @@
 from django import template
+import re
 
 register = template.Library()
 
@@ -14,10 +15,11 @@ CENS_WORDS = [
 def censor(text):
     if not type(text) == str:
         raise ValueError('Filter censor gets strings only.')
-    censed_text = []
-    words = text.split()
+
+    censed_text = ''
+    words = re.findall(r'[0-9]+|[A-z]+|[А-я,ё]+|\S| |', text)
     for word in words:
         if word in CENS_WORDS:
             word = word[0] + '*' * (len(word) - 1)
-        censed_text.append(word)
-    return ' '.join(censed_text)
+        censed_text += word
+    return censed_text
