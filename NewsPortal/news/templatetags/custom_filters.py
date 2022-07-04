@@ -1,3 +1,7 @@
+from django import template
+
+register = template.Library()
+
 CENS_WORDS = [
     'сука',
     'козёл',
@@ -6,8 +10,10 @@ CENS_WORDS = [
 ]
 
 
-# @register.filter()
+@register.filter()
 def censor(text):
+    if not type(text) == str:
+        raise ValueError('Filter censor gets strings only.')
     censed_text = []
     words = text.split()
     for word in words:
@@ -15,8 +21,3 @@ def censor(text):
             word = word[0] + '*' * (len(word) - 1)
         censed_text.append(word)
     return ' '.join(censed_text)
-
-a = 'Fdsa'
-print(a[:-1])
-
-

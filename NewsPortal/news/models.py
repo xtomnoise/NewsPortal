@@ -50,6 +50,9 @@ class Post(models.Model):
     def preview(self):
         return f'{self.text[:123]}...'
 
+    def __str__(self):
+        return f'{self.preview().title()}: {self.time_create.strftime("%d-%b-%y")}'
+
 
 class PostCategory(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
