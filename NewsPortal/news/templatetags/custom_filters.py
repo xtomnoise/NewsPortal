@@ -17,7 +17,7 @@ def censor(text):
         raise ValueError('Filter censor gets strings only.')
 
     censed_text = ''
-    words = re.findall(r'[0-9]+|[A-z]+|[А-я,ё]+|\S| |', text)
+    words = re.findall(r'[0-9]+|[A-z]+|[А-яё]+|\S| |', text)
     for word in words:
         if word in CENS_WORDS:
             word = word[0] + '*' * (len(word) - 1)

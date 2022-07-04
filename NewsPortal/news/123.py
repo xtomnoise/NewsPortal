@@ -22,4 +22,4 @@ def censor(text):
         censed_text+=word
     return censed_text
 t = 'Главная сука причина дефицита — уход этих двух козёл '
-print(re.findall(r'[0-9]+|[A-z]+|[А-я,ё]+|\S| |', t))
+print(re.findall(r'[0-9]+|[A-z]+|[А-яё]+|\S| |', t))
