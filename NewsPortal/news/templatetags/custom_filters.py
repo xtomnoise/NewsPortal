@@ -11,7 +11,7 @@ CENS_WORDS = [
 ]
 
 
-@register.filter() 
+@register.filter()
 def censor(text):
     if not type(text) == str:
         raise ValueError('Filter censor gets strings only.')
@@ -23,3 +23,4 @@ def censor(text):
             word = word[0] + '*' * (len(word) - 1)
         censed_text += word
     return censed_text
+

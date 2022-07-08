@@ -1,7 +1,7 @@
 from django.db import models
-from django.db.models import Sum, Count, Max
+from django.db.models import Sum
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -15,9 +15,15 @@ class Author(models.Model):
         self.rating = posts_r * 3 + self_comms_r + other_comms_r
         self.save()
 
+    def __str__(self):
+        return f'{self.user.username}'
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return f'{self.category_name}'
 
 
 class Post(models.Model):
@@ -52,6 +58,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.preview().title()}: {self.time_create.strftime("%d-%b-%y")}'
+
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[str(self.id)])
 
 
 class PostCategory(models.Model):
