@@ -2,10 +2,14 @@ from django.urls import reverse_lazy
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView,
 )
-from .models import Post
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from .models import Post, User
 from datetime import datetime
 from .filters import PostFilter
-from .forms import PostForm
+from .forms import PostForm, UserForm
+
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class PostList(ListView):
@@ -19,7 +23,7 @@ class PostList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['time_now'] = datetime.utcnow()
-
+        context['is_not_author'] = not self.request.user.groups.filter(name='author').exists()
         return context
 
 
@@ -51,7 +55,6 @@ class PostSearch(ListView):
         # Возвращаем из функции отфильтрованный список товаров
         return self.filterset.qs
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['time_now'] = datetime.utcnow()
@@ -59,19 +62,31 @@ class PostSearch(ListView):
 
         return context
 
-class PostCreate(CreateView):
+
+class PostCreate(PermissionRequiredMixin,
+                 LoginRequiredMixin,
+                 CreateView):
     form_class = PostForm
     model = Post
-    template_name = 'post_edit.html'
+    template_name = 'post_update.html'
     context_object_name = 'post_create'
+    permission_required = ('news.add_post',)
 
-class PostUpdate(UpdateView):
+
+class PostUpdate(PermissionRequiredMixin,
+                 LoginRequiredMixin,
+                 UpdateView):
     form_class = PostForm
     model = Post
-    template_name = 'post_edit.html'
+    template_name = 'post_update.html'
     context_object_name = 'post_update'
+    permission_required = ('news.change_post',)
 
-class PostDelete(DeleteView):
+
+class PostDelete(PermissionRequiredMixin,
+                 LoginRequiredMixin,
+                 DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('post_list')
+    permission_required = ('news.delete_post',)
