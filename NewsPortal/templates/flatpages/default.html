@@ -21,11 +21,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         {% if is_not_author %}
-                            <li class="nav-item"><a class="nav-link" href="/sign/upgrade/">{{ is_not_author }}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/sign/upgrade/">Become author</a></li>
                         {% else %}
-                            <li class="nav-item"><a class="nav-link">{{ request.user }}</a></li>
+                            <li class="nav-item"><a class="nav-link">Author {{ request.user }}</a></li>
                         {% endif %}
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/news/create">Create post</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/news/categories">Categories</a></li>
                         <li class="nav-item"><a class="nav-link" href="/sign/logout/">Logout</a></li>
                     </ul>
                 </div>

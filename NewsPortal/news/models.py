@@ -3,9 +3,9 @@ from django.db.models import Sum
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
     rating = models.IntegerField(default=0)
 
     def update_rating(self):
@@ -21,9 +21,18 @@ class Author(models.Model):
 
 class Category(models.Model):
     category_name = models.CharField(max_length=50, unique=True)
+    subscribers = models.ManyToManyField(User, through='CategorySubscribers', blank=True)
 
     def __str__(self):
         return f'{self.category_name}'
+
+
+class CategorySubscribers(models.Model):
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, blank=True, null=True)
+    subscribers = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.category} - {self.subscribers}'
 
 
 class Post(models.Model):
@@ -57,7 +66,7 @@ class Post(models.Model):
         return f'{self.text[:123]}...'
 
     def __str__(self):
-        return f'{self.preview().title()}: {self.time_create.strftime("%d-%b-%y")}'
+        return f'{self.title}: {self.time_create.strftime("%d-%b-%y")}'
 
     def get_absolute_url(self):
         return reverse('post_detail', args=[str(self.id)])

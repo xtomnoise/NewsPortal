@@ -6,3 +6,4 @@ class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'protect/index.html'
 
 
+

@@ -1,0 +1,24 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block content %}
+   <h1>Список категорий</h1>
+
+   <h3>{{ time_now|date:'M d Y' }}</h3>
+   <hr>
+
+
+   {% for cat in categories %}
+        <i>{{ cat }}</i>
+        {% if user in cat.subscribers.all %}
+            <button><a href="unsubscribe/?pk={{ cat.pk }}">Отписаться</a></button>
+        {% else %}
+            <button><a href="subscribe/?pk={{ cat.pk }}">Подписаться</a></button>
+        {% endif %}
+        </br>
+   {% endfor %}
+
+
+{% endblock content %}

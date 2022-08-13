@@ -11,10 +11,15 @@
    {% if posts %}
 
        {% for post in posts %}
+            <i>{{ post.author }} - </i>
             <i>{{ post.time_create }}</i>
-            <h4>{{ post.title|censor }}</h4>
+            </br>
+            {% for cat in post.category.all %}
+                {{ cat }}
+            {% endfor %}
+            <h4><a href="http://127.0.0.1:8000/news/{{post.pk}}">{{ post.title|censor }}</a></h4>
             {{ post.text|truncatewords:20|censor }}
-            </br></br>
+            <hr>
        {% endfor %}
 
        {% if page_obj.has_previous %}

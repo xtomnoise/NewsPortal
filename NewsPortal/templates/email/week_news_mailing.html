@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% load account %}
+    <h1>{{ username }}, новое за неделю!</h1>
+
+    {% for post in posts %}
+        <b>{{ post.title }}</b> - <i>{{ post.time_create|date:'M d Y' }}   </i>
+        <button><a href="http://127.0.0.1:8000/news/{{post.pk}}">Прочитать</a></button>
+        </br>
+    {% endfor %}
+     <!-- Вставляем ссылку на активацию -->
+</body>
+</html>

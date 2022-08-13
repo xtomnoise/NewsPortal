@@ -5,6 +5,11 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+import os
+import sys
+sys.path.append(os.path.abspath('..'))
+from news.models import Author
+
 
 class BaseRegisterView(CreateView):
     model = User
@@ -29,4 +34,5 @@ def upgrade_me(request):
     author_group = Group.objects.get(name='author')
     if not request.user.groups.filter(name='author').exists():
         author_group.user_set.add(user)
+        Author.objects.create(user=user)
     return redirect('post_list')
