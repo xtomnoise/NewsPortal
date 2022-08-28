@@ -23,4 +23,3 @@ def censor(text):
             word = word[0] + '*' * (len(word) - 1)
         censed_text += word
     return censed_text
-

@@ -14,7 +14,6 @@ from django.template.loader import render_to_string
 
 from ...models import Post, CategorySubscribers, Category
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -47,7 +46,6 @@ def week_news_mailing():
 
             msg.attach_alternative(html_content, "text/html")
             msg.send()
-
 
 
 # функция, которая будет удалять неактуальные задачи
