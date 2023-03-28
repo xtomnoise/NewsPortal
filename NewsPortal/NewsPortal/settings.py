@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-erzbtmnw5fjringtv_%+gpo(t#fj_+h4l2uqhki)51vss2*6vh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -170,8 +170,14 @@ DEFAULT_FROM_EMAIL = 'auddrct@yandex.ru'
 
 MANAGERS = [
     ('artem10', 'tomnoise@mail.ru'),
+    # список всех менеджеров в формате ('имя', 'их почта')
+]
+
+ADMINS = [
+    ('artem10', 'tomnoise@mail.ru'),
     # список всех админов в формате ('имя', 'их почта')
 ]
+
 SERVER_EMAIL = 'auddrct@yandex.ru'
 
 CELERY_BROKER_URL = 'redis://localhost:6379'
@@ -179,3 +185,119 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'cache_files'),
+        # Указываем, куда будем сохранять кэшируемые файлы! Не забываем создать папку cache_files внутри папки с manage.py!
+    }
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'style': '{',
+    'formatters': {
+        'debug_f': {
+            'format': '%(asctime)s - %(levelname)s - %(message)s'
+        },
+        'warning_f': {
+            'format': '%(asctime)s - %(levelname)s - %(message)s - %(pathname)s'
+        },
+        'error_critical_f': {
+            'format': '%(asctime)s - %(levelname)s - %(message)s - %(pathname)s - %(exc_info)s'
+        },
+        'general_f': {
+            'format': '%(asctime)s - %(levelname)s - %(module)s - %(message)s'
+        },
+        'error_mail_f': {
+            'format': '%(asctime)s - %(levelname)s - %(message)s - %(pathname)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'debug_h': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'debug_f'
+        },
+        'warning_h': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'warning_f'
+        },
+        'error_critical_h': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'error_critical_f'
+        },
+        'general_h': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'general_f',
+            'filename': 'general.log'
+        },
+        'error_h': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'error_critical_f',
+            'filename': 'errors.log'
+        },
+        'security_h': {
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'general_f',
+            'filename': 'security.log'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'error_mail_f',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['debug_h', 'warning_h', 'error_critical_h', 'general_h'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['error_h', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.server': {
+            'handlers': ['error_h', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.template': {
+            'handlers': ['error_h', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.db.backends': {
+            'handlers': ['error_h'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.security': {
+            'handlers': ['security_h'],
+            'propagate': True,
+        },
+    }
+}

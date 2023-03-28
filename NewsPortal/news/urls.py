@@ -5,6 +5,7 @@ from .views import (
     PostUpdate, PostDelete, CategoriesList, subscribe, unsubscribe,
     PostsLimit,
 )
+from django.views.decorators.cache import cache_page
 
 urlpatterns = [
     # path — означает путь.

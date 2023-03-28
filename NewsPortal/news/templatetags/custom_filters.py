@@ -18,8 +18,9 @@ def censor(text):
 
     censed_text = ''
     words = re.findall(r'[0-9]+|[A-z]+|[А-яё]+|\S| |', text)
+
     for word in words:
-        if word in CENS_WORDS:
-            word = word[0] + '*' * (len(word) - 1)
+        if word.lower() in CENS_WORDS:
+            word = word[0] + '*' * (len(word) - 2) + word[-1]
         censed_text += word
     return censed_text

@@ -1,0 +1,45 @@
+2023-03-28 23:07:41,539 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:07:56,107 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2023-03-28 23:08:04,102 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:08:24,297 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2023-03-28 23:08:25,015 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:09:29,774 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\views.py changed, reloading.
+2023-03-28 23:09:30,675 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:09:30,865 - ERROR - log - Internal Server Error: /news/
+Traceback (most recent call last):
+  File "F:\FULLSTACK\Practice\News Portal\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "F:\FULLSTACK\Practice\News Portal\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "F:\FULLSTACK\Practice\News Portal\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "F:\FULLSTACK\Practice\News Portal\venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "F:\FULLSTACK\Practice\News Portal\venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "F:\FULLSTACK\Practice\News Portal\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: posts1123.html, news/post_list.html
+2023-03-28 23:09:31,733 - ERROR - basehttp - "GET /news/ HTTP/1.1" 500 145
+2023-03-28 23:10:16,171 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\views.py changed, reloading.
+2023-03-28 23:10:17,031 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:12:23,155 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\admin.py changed, reloading.
+2023-03-28 23:12:24,127 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:15:43,123 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\models.py changed, reloading.
+2023-03-28 23:15:43,982 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:15:58,621 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\models.py changed, reloading.
+2023-03-28 23:15:59,418 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:19:16,159 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\templatetags\custom_filters.py changed, reloading.
+2023-03-28 23:19:17,041 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:20:44,351 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\urls.py changed, reloading.
+2023-03-28 23:20:45,317 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:20:47,124 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\urls.py changed, reloading.
+2023-03-28 23:20:48,418 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:24:57,420 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\views.py changed, reloading.
+2023-03-28 23:24:58,531 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:25:13,572 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\views.py changed, reloading.
+2023-03-28 23:25:14,447 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:25:16,316 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\views.py changed, reloading.
+2023-03-28 23:25:17,379 - INFO - autoreload - Watching for file changes with StatReloader
+2023-03-28 23:25:35,320 - INFO - autoreload - F:\FULLSTACK\Practice\News Portal\NewsPortal\news\views.py changed, reloading.
+2023-03-28 23:25:36,229 - INFO - autoreload - Watching for file changes with StatReloader
